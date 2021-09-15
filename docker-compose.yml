@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis
+    container_name: redis
+    networks:
+      - balances_network
+
+  web:
+    build: ./app
+    container_name: webapp
+    networks:
+      - balances_network
+    ports:
+      - 5001:5001
+    depends_on:
+      - redis
+
+networks:
+  balances_network:
